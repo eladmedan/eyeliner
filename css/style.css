@@ -3,7 +3,7 @@
   src: url('AmstelvarAlpha-VF.ttf') format("truetype-variations");
   font-weight: 28 250; */
 /*   font-stretch: 60% 402%; */
-font-family: 'narkiss_text_variabregminopsz';
+font-family: 'narkiss_text';
 
   src:url('../assets/NarkissText-VF.ttf') format("truetype-variations"),
       url('../assets/narkisstext-vf-webfont.woff2') format('woff2'),
@@ -41,7 +41,7 @@ canvas {
 
 #target {
     direction: rtl;
-  font-family:'NarkissText-VF';
+  font-family:'narkiss_text';
   color: black;
 /*   background-color: yellow; */
   font-size: 3em;
