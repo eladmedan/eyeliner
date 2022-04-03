@@ -13,7 +13,6 @@
 // window.saveDataAcrossSessions = true;
 
 var content;
-// var divArray = [];
 // var pos;
 // var xprediction,yprediction;
 
@@ -47,7 +46,6 @@ function setup() {
 
   results = Splitting(); //array of all the splits in #target
   wordsArray = selectAll('.word'); //array of all .word class
-  // TODO rreplace with esults.words
 
   lastWord = 0;
 
@@ -60,8 +58,6 @@ function setup() {
       //1. get the current word's index number
       styleVal = getComputedStyle(e.target, 'style');
       thisWord = (int(styleVal.getPropertyValue('--word-index')));
-
-      // content.addEventListener("mouseout", x(thisWord));
 
       //2. cleans up the grades from text - MAYBE MAKE MORE EFFICIENT
       if (lastWord > 0) {
@@ -78,54 +74,15 @@ function setup() {
 
         lastWord = thisWord
       })
-
-
-
-
-
-      // add event listener - vertical with buffer / out of div
-      // we're not hovering a word`
-      // call func x()
-
   }
-  // for (let i = 1; i <= 3; i++) {
-  //   divArray[i] = document.createElement("div",(select('#target'));
-  //   divArray[i].style('white-space', 'nowrap');
-  //   divArray[i].position(pos - i * (0.7 * windowHeight), 0.3*windowHeight - i * (0.1 * windowHeight));
-  //   document.divArray[i].appendChild(select('#container');)
-  //   }
+
+
+
+
 
 }
-
-
-
-
-
-function x(thisWord){
-  // let rowsDiv = createElement("div",content);
-  // rowsDiv.setAttribute('class', 'rows');
-  // rowsDiv.style.width = 0.9 * windowHeight;
-  // rowsDiv.style.height = windowHeight;
-  // content.style.opacity = 0;
-  console.log('this is really happening');
-  content.style.color = "red";
-
-  // let width text
-
-  // we're on word - current word
-
-  // hide container
-
-  // draw text box in new div -> same with, 100% height
-  // new div is -->>
-  // before - set div in css to vertical align middle
-}
-
-
 
 function draw() {
-
-
   if (mouseX < 0.45 * windowWidth) {
   move = map(mouseX, 0, 0.45 * windowWidth, maxSpeed, 0);
   } else if (mouseX > 0.55 * windowWidth) {
@@ -134,8 +91,4 @@ function draw() {
 
   pos = pos + move;
   content.position(pos, 0.3 * windowHeight);
-
-    // for (let i = 1; i <= 3; i++) {
-    //   divArray[i].position(pos - i * (0.9 * windowHeight), 0.3*windowHeight - i * (0.1 * windowHeight));
-  }
 }
