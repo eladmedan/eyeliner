@@ -13,10 +13,14 @@
 // window.saveDataAcrossSessions = true;
 
 var content;
-// var divArray = [];
-// var pos;
+var target;
+var pos;
+var string;
 // var xprediction,yprediction;
 
+function preload(){
+  string = loadStrings('assets/test.txt');
+}
 
 function setup() {
   frameRate(120);
@@ -32,18 +36,38 @@ function setup() {
 //     //elapsed time is based on time since begin was called
 // }).begin();
 // frameRate(120);
-  pos = 0.5 * windowWidth - 78148;
+
+
+  pos = 0.5 * windowWidth //- 78148;
 
   maxSpeed = 10;
 
-  content = select('#target');
+  target = createElement('div',join(string,' '));
+
+  console.log(target)
+
+  target.attribute('data-splitting','');
+  // target.classList.add('target');
+  target.attribute('class','target');
+  // target.textContent = 'Hello world';
+
+  console.log(target)
+
+  content = select('.target');
+  console.log(content)
 
   content.style('white-space', 'nowrap');
 
+  container = select('#container');
+  container.child(content);
   // let contentWidth = content.clientWidth;
 
 
   content.position(pos, 0.3 * windowHeight);
+
+  // node = document.getElementById("container").lastChild;
+  // clone = node.cloneNode(true);
+  // console.log(node);
 
   results = Splitting(); //array of all the splits in #target
   wordsArray = selectAll('.word'); //array of all .word class
@@ -61,8 +85,6 @@ function setup() {
       styleVal = getComputedStyle(e.target, 'style');
       thisWord = (int(styleVal.getPropertyValue('--word-index')));
 
-      // content.addEventListener("mouseout", x(thisWord));
-
       //2. cleans up the grades from text - MAYBE MAKE MORE EFFICIENT
       if (lastWord > 0) {
       for (let i = lastWord - 1; i < lastWord + 3; i++){
@@ -78,54 +100,16 @@ function setup() {
 
         lastWord = thisWord
       })
-
-
-
-
-
-      // add event listener - vertical with buffer / out of div
-      // we're not hovering a word`
-      // call func x()
-
   }
-  // for (let i = 1; i <= 3; i++) {
-  //   divArray[i] = document.createElement("div",(select('#target'));
-  //   divArray[i].style('white-space', 'nowrap');
-  //   divArray[i].position(pos - i * (0.7 * windowHeight), 0.3*windowHeight - i * (0.1 * windowHeight));
-  //   document.divArray[i].appendChild(select('#container');)
-  //   }
+
+// add event listener
+// we're not ho
+
+
 
 }
-
-
-
-
-
-function x(thisWord){
-  // let rowsDiv = createElement("div",content);
-  // rowsDiv.setAttribute('class', 'rows');
-  // rowsDiv.style.width = 0.9 * windowHeight;
-  // rowsDiv.style.height = windowHeight;
-  // content.style.opacity = 0;
-  console.log('this is really happening');
-  content.style.color = "red";
-
-  // let width text
-
-  // we're on word - current word
-
-  // hide container
-
-  // draw text box in new div -> same with, 100% height
-  // new div is -->>
-  // before - set div in css to vertical align middle
-}
-
-
 
 function draw() {
-
-
   if (mouseX < 0.45 * windowWidth) {
   move = map(mouseX, 0, 0.45 * windowWidth, maxSpeed, 0);
   } else if (mouseX > 0.55 * windowWidth) {
@@ -134,8 +118,4 @@ function draw() {
 
   pos = pos + move;
   content.position(pos, 0.3 * windowHeight);
-
-    // for (let i = 1; i <= 3; i++) {
-    //   divArray[i].position(pos - i * (0.9 * windowHeight), 0.3*windowHeight - i * (0.1 * windowHeight));
-  }
 }
