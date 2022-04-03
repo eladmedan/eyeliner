@@ -12,10 +12,10 @@
 
 // window.saveDataAcrossSessions = true;
 
-var content;
 var target;
 var pos;
 var string;
+var targetArray = []
 // var xprediction,yprediction;
 
 function preload(){
@@ -36,44 +36,43 @@ function setup() {
 //     //elapsed time is based on time since begin was called
 // }).begin();
 // frameRate(120);
-
-
-  pos = 0.5 * windowWidth //- 78148;
-
+  pos = 0;
+  length = 77300;
   maxSpeed = 10;
 
+
   target = createElement('div',join(string,' '));
-
-  console.log(target)
-
   target.attribute('data-splitting','');
   // target.classList.add('target');
   target.attribute('class','target');
-  // target.textContent = 'Hello world';
+  target.attribute('dir','rtl');
+  target.style('white-space', 'nowrap');
 
-  console.log(target)
-
-  content = select('.target');
-  console.log(content)
-
-  content.style('white-space', 'nowrap');
 
   container = select('#container');
-  container.child(content);
-  // let contentWidth = content.clientWidth;
+  container.child(target);
+  target.position(pos - length, 0.3 * windowHeight);
+
+  for (let i = 1; i < 4; i++) {
+    targetArray[i] = createElement('div',join(string,' '))
+    targetArray[i].attribute('class','target');
+    targetArray[i].attribute('dir','rtl');
+    targetArray[i].style('white-space', 'nowrap');
+    container.child(targetArray[i]);
+    targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
+  }
+  console.log(windowHeight);
 
 
-  content.position(pos, 0.3 * windowHeight);
 
-  // node = document.getElementById("container").lastChild;
-  // clone = node.cloneNode(true);
-  // console.log(node);
+
 
   results = Splitting(); //array of all the splits in #target
   wordsArray = selectAll('.word'); //array of all .word class
   // TODO rreplace with esults.words
-
+  console.log(results[0].words[0]," ", wordsArray[0]);
   lastWord = 0;
+
 
     //adds hover event listener for each word
   for (let c_idx = 0; c_idx < results[0].words.length; c_idx++) {
@@ -107,6 +106,8 @@ function setup() {
 
 
 
+
+
 }
 
 function draw() {
@@ -117,5 +118,9 @@ function draw() {
   } else move = 0;
 
   pos = pos + move;
-  content.position(pos, 0.3 * windowHeight);
+  target.position(pos - length, 0.3 * windowHeight);
+
+  for (let i = 1; i < 4; i++) {
+    targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
+  }
 }

@@ -54,7 +54,7 @@ canvas {
 }
 
 .word {
-  background-color: red;
+  /* background-color: red; */
   padding-top: 0.5em;
   padding-bottom: 0/em;
   transition-duration: 0.5s;
