@@ -12,11 +12,12 @@
 
 // window.saveDataAcrossSessions = true;
 
-var lines;
-var paragraph;
-var pos;
+
 var string;
-var targetArray = []
+var maxSpeed;
+var pos;
+var type;
+
 // var xprediction,yprediction;
 
 function preload(){
@@ -24,19 +25,29 @@ function preload(){
 }
 
 function setup() {
-  frameRate(120);
+
+
 
   // pos = 0;
   // length = 77300;
   // maxSpeed = 10;
 
   $(document).ready(function() {
+    // var string;
+    var maxSpeed;
+    var pos;
+    var type;
+
+
+    frameRate(120);
+    var maxSpeed = 10;
+    var pos = 0;
     // string = loadStrings('assets/test.txt');
     // console.log(string);
     // paragraph = createDiv('');//,join(string,' '));
     // paragraph.attribute('id','target');
-    var a = select('#target').html(join(string,' '));
-    console.log('this is a: ',a);
+    var paragraph = select('#target').html(join(string,' '));
+    console.log('this is paragraph: ',paragraph);
 
 
     const target = document.querySelector('#target');
@@ -44,59 +55,46 @@ function setup() {
     var results = Splitting({ target: target, by: 'lines' });
     //
     // container = select('#container');
+
+    // var row = paragraph.elt;
+
+    $(function(){
+      var $row = $('#target').clone().attr("id", "type");
+      $('#container').html($row);
+  });
+
+  // console.log('this is results: ',results);
+  // console.log('this is $row: ',$row);
+
+    for (let row_idx = 0; row_idx < results[0].lines.length; row_idx++) {
+      // results[0].lines[row_idx][0].setAttribute('id','row'+row_idx.toString());
+      var a = document.createElement('a');
+      a.setAttribute('id','row'+row_idx.toString());
+      results[0].el.insertBefore(a, results[0].lines[row_idx][0]);
+      }
+
+
+
   });
 
 
+}
+var pos = 0;
+var maxSpeed = 5;
+
+function draw() {
+  var type = document.querySelector('#type')
 
 
-  //this makes an array that is #ed by rows but is one complete row
-//   var rowArray = [];
-//   var row = createElement('div');
-//
-//   for (let row_idx = 0; row_idx < results[0].lines.length; row_idx++) {
-//     rowArray[row_idx] = createElement('div');
-//     rowArray[row_idx].attribute('id',row_idx);
-//     // var selectRow = select('#'+row_idx);
-//     for (let word_idx = 0; word_idx < results[0].lines[row_idx].length; word_idx++){
-//       rowArray[row_idx].child(results[0].lines[row_idx][word_idx]);
-//     }
-//     row.child(rowArray[row_idx].elt);
-//     row.attribute('id','type');
-// }
-  // console.log('this is rowArray[0]: ', rowArray[0].elt);
-  // console.log('this is results.lines[0].word[0]: ', results[0].lines[0][0]);
-  // console.log('this is row: ', row.elt);
+  if (mouseX < 0.45 * windowWidth) {
+  move = map(mouseX, 0, 0.45 * windowWidth, maxSpeed, 0);
+  } else if (mouseX > 0.55 * windowWidth) {
+    move = map(mouseX, 0.55 * windowWidth, windowWidth, 0, -maxSpeed);
+  } else move = 0;
 
-
-
-
-  // container.child(text);
-
-
-  // row.position(0, 0.3 * windowHeight);
-
-  // console.log('this is container: ', container);
-  // console.log('this is lines: ', lines);
-  // console.log('this is results: ', results);
-
-
-  // target.position(pos - length, 0.3 * windowHeight);
-
-  // for (let i = 1; i < 4; i++) {
-  //   targetArray[i] = createElement('div',join(string,' '))
-  //   targetArray[i].attribute('class','target');
-  //   targetArray[i].attribute('dir','rtl');
-  //   targetArray[i].style('white-space', 'nowrap');
-  //   container.child(targetArray[i]);
-  //   targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
-  // }
-  // console.log(windowHeight);
-
-
-
-
-
- //array of all the splits in #target
-
-
+  pos = pos - move;
+  type.scrollTo(pos,0);
+  type.scrollTo({
+    behavior: "smooth"
+  });
 }

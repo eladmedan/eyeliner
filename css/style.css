@@ -30,23 +30,27 @@ body {
   cursor: none;
   /* align-content: center; */
   position: relative;
+  overflow: auto;
 
 }
 
 #container {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   height: 100vh;
   width: 100vh;
   /* background: yellow; */
   margin: auto;
   /* overflow: hidden; */
-  overflow-x: scroll;
-  overflow-y: scroll;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
   left: 0;
   right: 0;
   margin-left: auto;
-  margin-right: auto; 
-  /* white-space: nowrap; */
+  margin-right: auto;
 
   -webkit-mask-image: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 5%, rgba(255, 255, 255, 1) 95%, rgba(255, 255, 255, 0) 100%);
   /* mask-image: linear-gradient(to left, rgba(0, 0, 0, 0), (255, 0, 0, 1); */
@@ -57,59 +61,61 @@ canvas {
 }
 
 #type {
-  display: flex;
-
+  /* display: flex; */
   direction: rtl;
   font-family:'narkiss_text';
   color: black;
-  background-color: yellow;
-
+  /* background-color: yellow; */
+  overflow: auto;
   font-size: 3em;
-  font-weight: 400;
-  font-variation-settings: 'opsz' 8;
-  transition-timing-function: linear;
-  transition-duration: 1s;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  /* font-weight: 400; */
+  /* font-variation-settings: 'opsz' 8; */
+  /* transition-timing-function: linear; */
+  /* transition-duration: 1s; */
+  /* padding-top: 1em;
+  padding-bottom: 1em; */
   white-space: nowrap;
-
+  /* top: 0;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto; */
+  z-index: 1;
   /* display: inline; */
   /* justify-content: space-between; */
 }
 
 
 #target {
+  visibility: hidden;
   direction: rtl;
   font-family:'narkiss_text';
   color: black;
-  background-color: red;
+  /* background-color: red; */
 
   font-size: 3em;
   font-weight: 400;
   font-variation-settings: 'opsz' 8;
   transition-timing-function: linear;
   transition-duration: 1s;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  width: 90vh;
+  /* padding-top: 1em;
+  padding-bottom: 1em; */
+  width: 100vh;
   position: absolute;
   left: 0;
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  /* white-space: nowrap; */
+  z-index: 0;
 
-  /* display: inline; */
-  /* justify-content: space-between;
 }
 
-.word {
-  /* background-color: red; */
+ /* .word {
+  background-color: red;
   padding-top: 0.5em;
   padding-bottom: 0/em;
   transition-duration: 0.5s;
   justify-content: space-between;
-}
+}  */
 
 /* .rows {
   word-break: break-all;
