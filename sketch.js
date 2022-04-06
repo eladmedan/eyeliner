@@ -34,58 +34,55 @@ function setup() {
 
   $(document).ready(function() {
     // var string;
-    var maxSpeed;
-    var pos;
     var type;
 
 
     frameRate(120);
-    var maxSpeed = 10;
-    var pos = 0;
+
     // string = loadStrings('assets/test.txt');
     // console.log(string);
     // paragraph = createDiv('');//,join(string,' '));
     // paragraph.attribute('id','target');
     var paragraph = select('#target').html(join(string,' '));
-    console.log('this is paragraph: ',paragraph);
-
 
     const target = document.querySelector('#target');
-    //
-    var results = Splitting({ target: target, by: 'lines' });
-    //
-    // container = select('#container');
 
-    // var row = paragraph.elt;
+    var results = Splitting({ target: target, by: 'lines' });
+
+    // gradeText(results);
 
     $(function(){
       var $row = $('#target').clone().attr("id", "type");
       $('#container').html($row);
   });
 
+    console.log(results);
+
   // console.log('this is results: ',results);
   // console.log('this is $row: ',$row);
 
+    //adds <a> tag for internal linking
     for (let row_idx = 0; row_idx < results[0].lines.length; row_idx++) {
       // results[0].lines[row_idx][0].setAttribute('id','row'+row_idx.toString());
       var a = document.createElement('a');
-      a.setAttribute('id','row'+row_idx.toString());
+      a.setAttribute('class','row'+row_idx.toString());
       results[0].el.insertBefore(a, results[0].lines[row_idx][0]);
       }
-
-
 
   });
 
 
 }
+
 var pos = 0;
 var maxSpeed = 5;
+var aInScreen = document.querySelector('#row0');
+
 
 function draw() {
+
   var type = document.querySelector('#type')
-
-
+  // console.log(type);
   if (mouseX < 0.45 * windowWidth) {
   move = map(mouseX, 0, 0.45 * windowWidth, maxSpeed, 0);
   } else if (mouseX > 0.55 * windowWidth) {
@@ -96,5 +93,69 @@ function draw() {
   type.scrollTo(pos,0);
   type.scrollTo({
     behavior: "smooth"
-  });
+})
+
+  for (let a_idx = 0; a_idx < 81; a_idx++) {
+    aX = document.querySelector('.row'+a_idx.toString()).getBoundingClientRect().left;
+    if ((aX > ((windowWidth-windowHeight)/2)) && (aX <((windowWidth-windowHeight)/2)+windowHeight)) {
+      var aInScreen = a_idx; //document.querySelector('#row'+a_idx.toString());
+    }
+  }
+
+  document.addEventListener('keydown', event => {
+  if (event.code === 'Enter') {
+    console.log('enter hold')
+    //scroll to next <a> on type
+    $(function() {
+	     $('a.row'+aInScreen.toString()).bind('keydown',function(event){
+		       var $anchor = $(this);
+		       $('container').stop().animate({
+			          scrollLeft: $($anchor.attr('href')).offset().left
+		            }, 1000);
+		              event.preventDefault();
+	});
+});
+      // aInScreen.scrollIntoView();
+    //scroll same <a> in target in middle of SCREEN
+    //make target visible and type invisible
+    //scroll vertical with eyes
+  }
+})
+
+
+// console.log('this is aInScreen: ', aInScreen);
+}
+
+// ----- functions ------
+
+function gradeText(results){
+  //adds hover event listener for each word
+  var wordsArray = selectAll('.word'); //array of all .word class
+  // console.log('this is wordsArray: ', wordsArray);
+  lastWord = 0;
+  for (let c_idx = 0; c_idx < results[0].words.length; c_idx++) {
+
+    results[0].words[c_idx].addEventListener("mouseover", function(e) {
+    //add the click event listener that will trigger the following:
+
+      //1. get the current word's index number
+      styleVal = getComputedStyle(e.target, 'style');
+      thisWord = (int(styleVal.getPropertyValue('--word-index')));
+
+      //2. cleans up the grades from text - MAYBE MAKE MORE EFFICIENT
+      if (lastWord > 0) {
+      for (let i = lastWord - 1; i < lastWord + 3; i++){
+       wordsArray[i].style('font-weight' ,400);
+      }
+    }
+
+      //3. grades the text where hovered
+        wordsArray[thisWord - 1].style('font-weight' ,600);
+        wordsArray[thisWord].style('font-weight' ,700);
+        wordsArray[thisWord + 1].style('font-weight' ,600);
+        wordsArray[thisWord + 2].style('font-weight' ,500);
+
+        lastWord = thisWord
+      })
+  }
 }

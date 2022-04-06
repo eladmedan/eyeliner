@@ -18,7 +18,7 @@ html {
   margin: 0;
   padding: 0;
 /  /* overflow: hidden; */
-  cursor: none;
+  /* cursor: none; */
   /* align-content: center; */
 
 }
@@ -27,15 +27,20 @@ body {
   margin: 0;
   padding: 0;
 /  /* overflow: hidden; */
-  cursor: none;
+  /* cursor: none; */
   /* align-content: center; */
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
   position: relative;
-  overflow: auto;
+
+
 
 }
 
 #container {
-  position: absolute;
+  cursor: none;
+
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +49,7 @@ body {
   width: 100vh;
   /* background: yellow; */
   margin: auto;
-  /* overflow: hidden; */
+  overflow: hidden;
   /* overflow-x: auto;
   overflow-y: hidden; */
   left: 0;
@@ -62,14 +67,16 @@ canvas {
 
 #type {
   /* display: flex; */
+  /* visibility: hidden; */
+  overflow-x: scroll;
   direction: rtl;
   font-family:'narkiss_text';
   color: black;
   /* background-color: yellow; */
-  overflow: auto;
+  /* overflow: auto; */
   font-size: 3em;
   /* font-weight: 400; */
-  /* font-variation-settings: 'opsz' 8; */
+  font-variation-settings: 'opsz' 8;
   /* transition-timing-function: linear; */
   /* transition-duration: 1s; */
   /* padding-top: 1em;
@@ -91,6 +98,7 @@ canvas {
   font-family:'narkiss_text';
   color: black;
   /* background-color: red; */
+  overflow: auto;
 
   font-size: 3em;
   font-weight: 400;
@@ -109,17 +117,26 @@ canvas {
 
 }
 
- /* .word {
-  background-color: red;
+ .word {
+  /* background-color: red;
   padding-top: 0.5em;
-  padding-bottom: 0/em;
+  padding-bottom: 0/em; */
   transition-duration: 0.5s;
-  justify-content: space-between;
-}  */
+  /* justify-content: space-between; */
+}
 
+
+#spacer {
+  height: 46.5vh;
+}
 /* .rows {
   word-break: break-all;
   overflow-wrap: break-word;
   hyphens: manual;
   vertical-align: middle;
 } */
+
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
