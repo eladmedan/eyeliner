@@ -12,7 +12,8 @@
 
 // window.saveDataAcrossSessions = true;
 
-var target;
+var lines;
+var paragraph;
 var pos;
 var string;
 var targetArray = []
@@ -24,103 +25,78 @@ function preload(){
 
 function setup() {
   frameRate(120);
-//     webgazer.setGazeListener(function(data, elapsedTime) {
-//     if (data == null) {
-//         return;
+
+  // pos = 0;
+  // length = 77300;
+  // maxSpeed = 10;
+
+  $(document).ready(function() {
+    // string = loadStrings('assets/test.txt');
+    // console.log(string);
+    // paragraph = createDiv('');//,join(string,' '));
+    // paragraph.attribute('id','target');
+    var a = select('#target').html(join(string,' '));
+    console.log('this is a: ',a);
+
+
+    const target = document.querySelector('#target');
+    //
+    var results = Splitting({ target: target, by: 'lines' });
+    //
+    // container = select('#container');
+  });
+
+
+
+
+  //this makes an array that is #ed by rows but is one complete row
+//   var rowArray = [];
+//   var row = createElement('div');
+//
+//   for (let row_idx = 0; row_idx < results[0].lines.length; row_idx++) {
+//     rowArray[row_idx] = createElement('div');
+//     rowArray[row_idx].attribute('id',row_idx);
+//     // var selectRow = select('#'+row_idx);
+//     for (let word_idx = 0; word_idx < results[0].lines[row_idx].length; word_idx++){
+//       rowArray[row_idx].child(results[0].lines[row_idx][word_idx]);
 //     }
-//      xprediction = data.x; //these x coordinates are relative to the viewport
-//      yprediction = data.y; //these y coordinates are relative to the viewport
-//     console.log("xprediction",xprediction);
-//     console.log("yprediction",yprediction);
-
-//     //elapsed time is based on time since begin was called
-// }).begin();
-// frameRate(120);
-  pos = 0;
-  length = 77300;
-  maxSpeed = 10;
+//     row.child(rowArray[row_idx].elt);
+//     row.attribute('id','type');
+// }
+  // console.log('this is rowArray[0]: ', rowArray[0].elt);
+  // console.log('this is results.lines[0].word[0]: ', results[0].lines[0][0]);
+  // console.log('this is row: ', row.elt);
 
 
-  target = createElement('div',join(string,' '));
-  target.attribute('data-splitting','');
-  // target.classList.add('target');
-  target.attribute('class','target');
-  target.attribute('dir','rtl');
-  target.style('white-space', 'nowrap');
 
 
-  container = select('#container');
-  container.child(target);
-  target.position(pos - length, 0.3 * windowHeight);
+  // container.child(text);
 
-  for (let i = 1; i < 4; i++) {
-    targetArray[i] = createElement('div',join(string,' '))
-    targetArray[i].attribute('class','target');
-    targetArray[i].attribute('dir','rtl');
-    targetArray[i].style('white-space', 'nowrap');
-    container.child(targetArray[i]);
-    targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
-  }
-  console.log(windowHeight);
+
+  // row.position(0, 0.3 * windowHeight);
+
+  // console.log('this is container: ', container);
+  // console.log('this is lines: ', lines);
+  // console.log('this is results: ', results);
+
+
+  // target.position(pos - length, 0.3 * windowHeight);
+
+  // for (let i = 1; i < 4; i++) {
+  //   targetArray[i] = createElement('div',join(string,' '))
+  //   targetArray[i].attribute('class','target');
+  //   targetArray[i].attribute('dir','rtl');
+  //   targetArray[i].style('white-space', 'nowrap');
+  //   container.child(targetArray[i]);
+  //   targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
+  // }
+  // console.log(windowHeight);
 
 
 
 
 
-  results = Splitting(); //array of all the splits in #target
-  wordsArray = selectAll('.word'); //array of all .word class
-  // TODO rreplace with esults.words
-  console.log(results[0].words[0]," ", wordsArray[0]);
-  lastWord = 0;
+ //array of all the splits in #target
 
 
-    //adds hover event listener for each word
-  for (let c_idx = 0; c_idx < results[0].words.length; c_idx++) {
-
-    results[0].words[c_idx].addEventListener("mouseover", function(e) {
-    //add the click event listener that will trigger the following:
-
-      //1. get the current word's index number
-      styleVal = getComputedStyle(e.target, 'style');
-      thisWord = (int(styleVal.getPropertyValue('--word-index')));
-
-      //2. cleans up the grades from text - MAYBE MAKE MORE EFFICIENT
-      if (lastWord > 0) {
-      for (let i = lastWord - 1; i < lastWord + 3; i++){
-       wordsArray[i].style('font-weight' ,400);
-      }
-    }
-
-      //3. grades the text where hovered
-        wordsArray[thisWord - 1].style('font-weight' ,600);
-        wordsArray[thisWord].style('font-weight' ,700);
-        wordsArray[thisWord + 1].style('font-weight' ,600);
-        wordsArray[thisWord + 2].style('font-weight' ,500);
-
-        lastWord = thisWord
-      })
-  }
-
-// add event listener
-// we're not ho
-
-
-
-
-
-}
-
-function draw() {
-  if (mouseX < 0.45 * windowWidth) {
-  move = map(mouseX, 0, 0.45 * windowWidth, maxSpeed, 0);
-  } else if (mouseX > 0.55 * windowWidth) {
-    move = map(mouseX, 0.55 * windowWidth, windowWidth, 0, -maxSpeed);
-  } else move = 0;
-
-  pos = pos + move;
-  target.position(pos - length, 0.3 * windowHeight);
-
-  for (let i = 1; i < 4; i++) {
-    targetArray[i].position(pos - length + (windowHeight * i), (0.3 * windowHeight) + (i * 0.2 * windowHeight));
-  }
 }
