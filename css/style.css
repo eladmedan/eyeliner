@@ -32,6 +32,7 @@ body {
   /* overflow-x: hidden; */
   /* overflow-y: hidden; */
   position: relative;
+  background-color: black;
 
 
 
@@ -71,7 +72,7 @@ canvas {
   overflow-x: scroll;
   direction: rtl;
   font-family:'narkiss_text';
-  color: black;
+  color: white;
   /* background-color: yellow; */
   /* overflow: auto; */
   font-size: 3em;
@@ -89,6 +90,7 @@ canvas {
   z-index: 1;
   /* display: inline; */
   /* justify-content: space-between; */
+  scroll-behavior: smooth;
 }
 
 
@@ -96,7 +98,7 @@ canvas {
   visibility: hidden;
   direction: rtl;
   font-family:'narkiss_text';
-  color: black;
+  color: white;
   /* background-color: red; */
   overflow: auto;
 
