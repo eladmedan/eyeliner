@@ -32,7 +32,7 @@ body {
   /* overflow-x: hidden; */
   /* overflow-y: hidden; */
   position: relative;
-  background-color: black;
+  background-color: #121212;
 
 
 
@@ -90,17 +90,18 @@ canvas {
   z-index: 1;
   /* display: inline; */
   /* justify-content: space-between; */
-  scroll-behavior: smooth;
+
 }
 
 
 #target {
-  visibility: hidden;
+  /* visibility: hidden; */
   direction: rtl;
   font-family:'narkiss_text';
   color: white;
   /* background-color: red; */
   overflow: auto;
+  white-space: nowrap;
 
   font-size: 3em;
   font-weight: 400;
@@ -120,9 +121,9 @@ canvas {
 }
 
  .word {
-  /* background-color: red;
+  /* background-color: red; */
   padding-top: 0.5em;
-  padding-bottom: 0/em; */
+  padding-bottom: 0.5em;
   transition-duration: 0.5s;
   /* justify-content: space-between; */
 }

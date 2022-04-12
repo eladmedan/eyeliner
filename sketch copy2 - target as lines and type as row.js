@@ -20,34 +20,61 @@ function setup() {
     var chapter = select('#target'); //selects the div that sets the text in an invisible column as a variable
 
     //places the text file into a div with a span with id for every paragraph in it
-    makeParagraphs(chapter)
+    for (let p_idx = 0; p_idx < string.length; p_idx++) {
+      var paragraph = createElement('span',string[p_idx])
+      console.log('this is paragraph: ', paragraph);
+      paragraph.elt.setAttribute('id','par'+p_idx.toString());
+      chapter.elt.appendChild(paragraph.elt);
+    }
 
     const target = document.querySelector('#target'); //integer for splitting.js defenitions
 
-    var results = Splitting({ target: target, by: 'words' }); //the pointer array for each word and line in the text
+    // var results = Splitting({ target: target, by: 'lines' }); //the pointer array for each word and line in the text
 
-    gradeText(results); //creats the grade effect upon hover
+
+    // gradeText(results);
+
+    $(function(){
+      var $row = $('#target').clone().attr("id", "type");
+      $('#container').html($row);
+
+      var results = Splitting({ target: target, by: 'lines' }); //the pointer array for each word and line in the text
+  });
+
+
+    //adds <a> tag for internal linking
+    // for (let row_idx = 0; row_idx < results[0].lines.length; row_idx++) {
+    //   // results[0].lines[row_idx][0].setAttribute('id','row'+row_idx.toString());
+    //   var a = document.createElement('a');
+    //   a.setAttribute('id','row'+row_idx.toString());
+    //   results[0].el.insertBefore(a, results[0].lines[row_idx][0]);
+    //   }
 
   });
 
 
 }
 
-var pos = 0; //reset the looping scroll position integer
-var maxSpeed = 1; //sets the maximum scroll speed
+var pos = 0;
+var maxSpeed = 7;
+var aInScreen = document.querySelector('#row0');
+// var type = document.querySelector('#type');
+
 
 function draw() {
 
-  // if (mouseX < 0.49 * windowWidth) {
-  // move = map(mouseX, 0, 0.49 * windowWidth, maxSpeed, 0);
-  // } else if (mouseX > 0.51 * windowWidth) {
-  //   move = map(mouseX, 0.51 * windowWidth, windowWidth, 0, -maxSpeed);
-  // } else move = 0;
-  //
-  // pos = pos - move;
-  scrollingText(maxSpeed); //sets the scrolling speed according to gaze X location in screen
+  var type = document.querySelector('#type');
+  // console.log(type);
+  if (mouseX < 0.49 * windowWidth) {
+  move = map(mouseX, 0, 0.49 * windowWidth, maxSpeed, 0);
+  } else if (mouseX > 0.51 * windowWidth) {
+    move = map(mouseX, 0.51 * windowWidth, windowWidth, 0, -maxSpeed);
+  } else move = 0;
 
-  target.scrollTo({ //scrolls
+  pos = pos - move;
+  // type.scrollTo(pos,0);
+
+  type.scrollTo({
   top: 0,
   left: pos,
   behavior: 'auto'
@@ -111,28 +138,6 @@ function gradeText(results){
         lastWord = thisWord
       })
   }
-}
-
-function makeParagraphs(chapter){
-  for (let p_idx = 0; p_idx < string.length; p_idx++) {
-    var paragraph = createElement('span',string[p_idx])
-    console.log('this is paragraph: ', paragraph);
-    paragraph.elt.setAttribute('id','par'+p_idx.toString());
-    chapter.elt.appendChild(paragraph.elt);
-  }
-}
-
-
-function scrollingText(maxSpeed){
-  if ((mouseX > 0.49 * windowWidth) && (mouseX < 0.5 * windowWidth)) {
-  move = map(mouseX, 0.5 * windowWidth, 0.49 * windowWidth, 0.5 * maxSpeed, maxSpeed);
-  } else if ((mouseX < 0.49 * windowWidth) && (mouseX > (windowHeight - windowWidth)/2)) {
-    move = map(mouseX, 0.49 * windowWidth, (windowHeight - windowWidth)/2, maxSpeed, 1.5 * maxSpeed);
-  } else {
-    move = 0;
-  }
-
-  pos = pos - move;
 }
 
 //---
