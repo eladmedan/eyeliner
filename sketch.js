@@ -34,18 +34,18 @@ function setup() {
 }
 
 var pos = 0; //reset the looping scroll position integer
-var maxSpeed = 1; //sets the maximum scroll speed
+var maxSpeed = 7; //sets the maximum scroll speed
 
 function draw() {
 
-  // if (mouseX < 0.49 * windowWidth) {
-  // move = map(mouseX, 0, 0.49 * windowWidth, maxSpeed, 0);
-  // } else if (mouseX > 0.51 * windowWidth) {
-  //   move = map(mouseX, 0.51 * windowWidth, windowWidth, 0, -maxSpeed);
-  // } else move = 0;
-  //
-  // pos = pos - move;
-  scrollingText(maxSpeed); //sets the scrolling speed according to gaze X location in screen
+  if (mouseX < 0.49 * windowWidth) {
+  move = map(mouseX, 0, 0.49 * windowWidth, maxSpeed, 0);
+  } else if (mouseX > 0.51 * windowWidth) {
+    move = map(mouseX, 0.51 * windowWidth, windowWidth, 0, -maxSpeed);
+  } else move = 0;
+
+  pos = pos - move;
+  // scrollingText(maxSpeed); //sets the scrolling speed according to gaze X location in screen
 
   target.scrollTo({ //scrolls
   top: 0,
